@@ -98,7 +98,7 @@ const InvoiceGenerator: React.FC = () => {
     formData.append("file", uploadedFile.file);
 
     try {
-      const res = await fetch("http://localhost:8095/api/v1.0/invoice", {
+      const res = await fetch("https://b86389ed-4c01-4b96-b966-7eb99b586dd6-00-3qsfgfmccjso.sisko.replit.dev/api/v1.0/invoice", {
         method: "POST",
         body: formData,
       });
