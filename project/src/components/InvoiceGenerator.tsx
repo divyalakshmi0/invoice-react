@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Download, FileSpreadsheet, CheckCircle, AlertCircle, Loader2, X, Eye } from 'lucide-react';
+import { Upload, Download, FileSpreadsheet, CheckCircle, AlertCircle, Loader2, X, Eye, ArrowLeft } from 'lucide-react';
 
 interface UploadedFile {
   id: number;
@@ -10,7 +10,11 @@ interface UploadedFile {
   isComplete: boolean;
 }
 
-const InvoiceGenerator: React.FC = () => {
+interface InvoiceGeneratorProps {
+  onBack: () => void;
+}
+
+const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ onBack }) => {
   const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -162,16 +166,30 @@ const InvoiceGenerator: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-6 py-12">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-xl mb-6">
-            <FileSpreadsheet className="w-8 h-8 text-white" />
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center py-6">
+            <button
+              onClick={onBack}
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors mr-4"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                <FileSpreadsheet className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Invoice Generator</h1>
+                <p className="text-gray-600">Upload Excel file and generate PDF invoice</p>
+              </div>
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Invoice Generator</h1>
-          <p className="text-gray-600">Upload Excel file and generate PDF invoice</p>
         </div>
+      </div>
 
+      <div className="container mx-auto px-6 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Upload Section */}
